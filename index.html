@@ -1,14 +1,593 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>GuriUp Legal</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuriUp - Your Journey to the Perfect Space</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles for Inter font and background */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Lightest gray background */
+            color: #374151; /* Dark gray text */
+            line-height: 1.6;
+            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+        }
+
+        /* Custom shadow for cards and sections */
+        .custom-shadow {
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.08), 0 8px 15px -5px rgba(0, 0, 0, 0.03);
+        }
+
+        /* Gradient for hero section button and primary buttons */
+        .btn-gradient {
+            background-image: linear-gradient(to right, #6366F1, #818CF8);
+            transition: all 0.3s ease;
+        }
+        .btn-gradient:hover {
+            background-image: linear-gradient(to right, #4f46e5, #6a5acd);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Subtle hover effect for feature cards */
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15), 0 8px 15px -5px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Responsive image sizing for hero section */
+        .hero-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 1.5rem;
+            object-fit: cover;
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeInSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Class for elements that will animate on scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero specific animations */
+        .hero-title, .hero-subtitle, .hero-button {
+            animation: fadeInSlideUp 1s ease-out forwards;
+        }
+        .hero-title { animation-delay: 0.2s; }
+        .hero-subtitle { animation-delay: 0.4s; }
+        .hero-button { animation-delay: 0.6s; }
+        .hero-img { animation: fadeInSlideUp 1s ease-out forwards; animation-delay: 0.8s; }
+
+
+        /* FAQ Accordion Styling */
+        .accordion-header {
+            cursor: pointer;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #1f2937;
+            background-color: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+            transition: background-color 0.3s ease;
+            border-radius: 0.75rem; /* Rounded corners for header */
+        }
+        .accordion-header:hover {
+            background-color: #eff6ff; /* Light blue on hover */
+        }
+        .accordion-header.active {
+            background-color: #e0e7ff; /* Lighter indigo when active */
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .accordion-content {
+            padding: 1.25rem 1.5rem;
+            background-color: #ffffff;
+            border-bottom-left-radius: 0.75rem;
+            border-bottom-right-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-top: none;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+        }
+        .accordion-content.open {
+            max-height: 500px; /* Adjust based on max content height */
+            padding: 1.25rem 1.5rem;
+        }
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        .accordion-icon.rotate {
+            transform: rotate(180deg);
+        }
+
+        /* Back to Top Button */
+        #back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #6366F1;
+            color: white;
+            padding: 1rem;
+            border-radius: 9999px;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+            display: none; /* Hidden by default */
+            cursor: pointer;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 1000;
+        }
+        #back-to-top:hover {
+            transform: translateY(-3px);
+            opacity: 0.9;
+        }
+    </style>
 </head>
-<body>
-  <h1>GuriUp Legal Pages</h1>
-  <ul>
-    <li><a href="privacy-policy.html">Privacy Policy</a></li>
-    <li><a href="terms.html">Terms of Use</a></li>
-  </ul>
+<body class="antialiased">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm py-4 px-6 md:px-12 fixed w-full z-50 rounded-b-xl custom-shadow">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="flex items-center space-x-2">
+                <img src="https://placehold.co/40x40/6366F1/FFFFFF?text=GU" alt="GuriUp Logo" class="h-10 w-10 rounded-full">
+                <span class="text-2xl font-extrabold text-indigo-700">GuriUp</span>
+            </a>
+
+            <!-- Mobile Menu Button (Hamburger) -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-600 focus:outline-none focus:text-indigo-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Desktop Navigation Links -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#features" class="text-gray-600 hover:text-indigo-700 font-medium transition duration-300">Features</a>
+                <a href="#how-it-works" class="text-gray-600 hover:text-indigo-700 font-medium transition duration-300">How it Works</a>
+                <a href="#impact" class="text-gray-600 hover:text-indigo-700 font-medium transition duration-300">Our Impact</a>
+                <a href="#testimonials" class="text-gray-600 hover:text-indigo-700 font-medium transition duration-300">Testimonials</a>
+                <a href="#faq" class="text-gray-600 hover:text-indigo-700 font-medium transition duration-300">FAQ</a>
+                <a href="#contact" class="text-gray-600 hover:text-indigo-700 font-medium transition duration-300">Contact</a>
+                <a href="#" class="btn-gradient text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transition duration-300">Get Started</a>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-3">
+            <a href="#features" class="block text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-lg transition duration-300">Features</a>
+            <a href="#how-it-works" class="block text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-lg transition duration-300">How it Works</a>
+            <a href="#impact" class="block text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-lg transition duration-300">Our Impact</a>
+            <a href="#testimonials" class="block text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-lg transition duration-300">Testimonials</a>
+            <a href="#faq" class="block text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-lg transition duration-300">FAQ</a>
+            <a href="#contact" class="block text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-lg transition duration-300">Contact</a>
+            <a href="#" class="block btn-gradient text-white px-4 py-2 rounded-lg font-semibold text-center mt-2">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-indigo-600 to-indigo-400 text-white py-24 md:py-32 flex items-center min-h-screen-minus-nav relative overflow-hidden">
+        <!-- Background shapes/lines for modern look -->
+        <div class="absolute inset-0 z-0 opacity-10">
+            <svg class="w-full h-full" fill="none" viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0H1440V800H0V0Z" fill="url(#pattern0)"/>
+                <defs>
+                    <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                        <use transform="scale(0.000694444 0.00125)" href="#image0_1_2"/>
+                    </pattern>
+                    <image id="image0_1_2" width="1440" height="800" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI4MDAiIHZpZXdCb3g9IjAgMCAxNDQwIDgwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAgMEgxNDQwVjgwMEgwVjBaIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXJfMV82KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDBfbGluZWFyXzFfNiIgeDE9IjcyMCIgeTE9IjAiIHgyPSI3MjAiIHkyPSI4MDAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY0N0RFNyIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0MzQ3QkEiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4="/>
+                </defs>
+            </svg>
+        </div>
+
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-6 md:px-12 pt-16 relative z-10">
+            <div class="text-center md:text-left md:w-1/2 mb-12 md:mb-0">
+                <h1 class="hero-title text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+                    Unlock Your <span class="text-yellow-300">Dream Property</span> or Perfect Stay
+                </h1>
+                <p class="hero-subtitle text-lg md:text-xl mb-8 opacity-90">
+                    GuriUp connects you with a world of exquisite homes and comfortable hotels. Your ideal space, just a tap away.
+                </p>
+                <a href="#" class="hero-button btn-gradient text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition duration-300 inline-block">
+                    Start Your Search Today
+                </a>
+            </div>
+            <div class="md:w-1/2 flex justify-center hero-img">
+                <img
+                    src="https://placehold.co/600x400/6366F1/FFFFFF?text=Modern+Home"
+                    onerror="this.onerror=null;this.src='https://placehold.co/600x400/E5E7EB/6B7280?text=Image+Unavailable';"
+                    alt="Modern Home Illustration"
+                    class="hero-image custom-shadow w-full max-w-md md:max-w-lg lg:max-w-xl"
+                >
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-16 animate-on-scroll">Why GuriUp is Your Best Choice</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="feature-card bg-white p-8 rounded-2xl custom-shadow text-center animate-on-scroll">
+                    <div class="bg-indigo-100 text-indigo-600 rounded-full p-4 inline-flex items-center justify-center mb-6">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Expansive Global Listings</h3>
+                    <p class="text-gray-600">Access thousands of verified properties and hotels in prime locations worldwide. Your next adventure or investment awaits.</p>
+                </div>
+                <!-- Feature Card 2 -->
+                <div class="feature-card bg-white p-8 rounded-2xl custom-shadow text-center animate-on-scroll" style="transition-delay: 0.1s;">
+                    <div class="bg-green-100 text-green-600 rounded-full p-4 inline-flex items-center justify-center mb-6">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Intelligent Search & Filters</h3>
+                    <p class="text-gray-600">Our intuitive search and smart filters help you pinpoint your exact desires, saving you time and effort.</p>
+                </div>
+                <!-- Feature Card 3 -->
+                <div class="feature-card bg-white p-8 rounded-2xl custom-shadow text-center animate-on-scroll" style="transition-delay: 0.2s;">
+                    <div class="bg-purple-100 text-purple-600 rounded-full p-4 inline-flex items-center justify-center mb-6">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3-.895-3-2 1.343-2 3-2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.612A9.763 9.763 0 0112 4c4.97 0 9 3.582 9 8z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Seamless & Secure Booking</h3>
+                    <p class="text-gray-600">Experience peace of mind with our streamlined and highly secure booking process, protecting your data and transactions.</p>
+                </div>
+                <!-- Feature Card 4 -->
+                <div class="feature-card bg-white p-8 rounded-2xl custom-shadow text-center animate-on-scroll" style="transition-delay: 0.3s;">
+                    <div class="bg-red-100 text-red-600 rounded-full p-4 inline-flex items-center justify-center mb-6">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Immersive Virtual Tours</h3>
+                    <p class="text-gray-600">Explore properties from anywhere with high-quality photos and engaging virtual tours, saving you travel time.</p>
+                </div>
+                <!-- Feature Card 5 -->
+                <div class="feature-card bg-white p-8 rounded-2xl custom-shadow text-center animate-on-scroll" style="transition-delay: 0.4s;">
+                    <div class="bg-yellow-100 text-yellow-600 rounded-full p-4 inline-flex items-center justify-center mb-6">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">24/7 Dedicated Support</h3>
+                    <p class="text-gray-600">Our expert support team is always ready to assist you, ensuring a smooth and stress-free experience.</p>
+                </div>
+                <!-- Feature Card 6 -->
+                <div class="feature-card bg-white p-8 rounded-2xl custom-shadow text-center animate-on-scroll" style="transition-delay: 0.5s;">
+                    <div class="bg-blue-100 text-blue-600 rounded-full p-4 inline-flex items-center justify-center mb-6">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.007 12.007 0 002.944 12c0 2.893.998 5.618 2.766 7.734l1.395 1.395A12.007 12.007 0 0012 21.056c2.893 0 5.618-.998 7.734-2.766l1.395-1.395A12.007 12.007 0 0021.056 12c0-2.893-.998-5.618-2.766-7.734z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Verified Listings & Trust</h3>
+                    <p class="text-gray-600">We prioritize your safety with a rigorous verification process for all properties and hosts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-16 animate-on-scroll">Your Path to the Perfect Space in 3 Simple Steps</h2>
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-12">
+                <div class="lg:w-1/2 animate-on-scroll">
+                    <ol class="space-y-10">
+                        <li>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-5 custom-shadow">1</div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Effortless Search & Discovery</h3>
+                                    <p class="text-gray-600">Define your ideal property or hotel with our advanced filters. Explore a vast selection tailored precisely to your needs and desires.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-5 custom-shadow">2</div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Immersive Exploration</h3>
+                                    <p class="text-gray-600">Dive deep into high-resolution photos, detailed descriptions, and captivating virtual tours. Experience your potential space before you even visit.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-5 custom-shadow">3</div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Secure & Instant Booking</h3>
+                                    <p class="text-gray-600">Found "the one"? Secure your booking directly through our app with confidence. Receive instant confirmation and prepare for your seamless experience.</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <div class="lg:w-1/2 flex justify-center animate-on-scroll" style="transition-delay: 0.2s;">
+                    <img
+                        src="https://placehold.co/600x400/818CF8/FFFFFF?text=App+Workflow"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x400/E5E7EB/6B7280?text=Image+Unavailable';"
+                        alt="How GuriUp App Works Workflow"
+                        class="hero-image custom-shadow w-full max-w-md md:max-w-lg lg:max-w-xl"
+                    >
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Impact & Partners Section -->
+    <section id="impact" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-16 animate-on-scroll">Our Commitment: Building Trust & Driving Impact</h2>
+            <p class="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto animate-on-scroll">
+                GuriUp is more than just an app; it's a platform committed to positive change. We are proud to collaborate with leading organizations to ensure transparency, support community development, and uphold international standards.
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center max-w-4xl mx-auto animate-on-scroll">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/UNICEF_Logo.svg/500px-UNICEF_Logo.svg.png" alt="UNICEF Logo" class="h-16 md:h-20 w-auto opacity-75 hover:opacity-100 transition duration-300" onerror="this.onerror=null;this.src='https://placehold.co/100x50/E5E7EB/6B7280?text=UNICEF';">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/World_Food_Programme_%28WFP%29_logo.svg/500px-World_Food_Programme_%28WFP%29_logo.svg.png" alt="WFP Logo" class="h-16 md:h-20 w-auto opacity-75 hover:opacity-100 transition duration-300" onerror="this.onerror=null;this.src='https://placehold.co/100x50/E5E7EB/6B7280?text=WFP';">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/WHO_logo.svg/500px-WHO_logo.svg.png" alt="WHO Logo" class="h-16 md:h-20 w-auto opacity-75 hover:opacity-100 transition duration-300" onerror="this.onerror=null;this.src='https://placehold.co/100x50/E5E7EB/6B7280?text=WHO';">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Flag_of_Somaliland.svg/500px-Flag_of_Somaliland.svg.png" alt="Somaliland National Logo" class="h-16 md:h-20 w-auto opacity-75 hover:opacity-100 transition duration-300" onerror="this.onerror=null;this.src='https://placehold.co/100x50/E5E7EB/6B7280?text=Somaliland';">
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-16 animate-on-scroll">Voices of Our Satisfied Users</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial Card 1 -->
+                <div class="bg-white p-8 rounded-2xl custom-shadow feature-card animate-on-scroll">
+                    <p class="text-lg text-gray-700 mb-6 italic">"GuriUp transformed my apartment hunt! The extensive listings and intuitive filters made finding my perfect home a breeze. Truly a game-changer!"</p>
+                    <div class="flex items-center">
+                        <img
+                            src="https://placehold.co/60x60/A78BFA/FFFFFF?text=JD"
+                            onerror="this.onerror=null;this.src='https://placehold.co/60x60/E5E7EB/6B7280?text=User';"
+                            alt="John Doe"
+                            class="w-16 h-16 rounded-full mr-4 object-cover"
+                        >
+                        <div>
+                            <p class="font-bold text-gray-800">John D.</p>
+                            <p class="text-sm text-gray-500">Happy Homeowner</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial Card 2 -->
+                <div class="bg-white p-8 rounded-2xl custom-shadow feature-card animate-on-scroll" style="transition-delay: 0.1s;">
+                    <p class="text-lg text-gray-700 mb-6 italic">"As a frequent traveler, GuriUp has become my go-to for hotel bookings. The secure process and detailed info save me so much time and worry."</p>
+                    <div class="flex items-center">
+                        <img
+                            src="https://placehold.co/60x60/FCD34D/FFFFFF?text=AS"
+                            onerror="this.onerror=null;this.src='https://placehold.co/60x60/E5E7EB/6B7280?text=User';"
+                            alt="Alice S."
+                            class="w-16 h-16 rounded-full mr-4 object-cover"
+                        >
+                        <div>
+                            <p class="font-bold text-gray-800">Alice S.</p>
+                            <p class="text-sm text-gray-500">Global Explorer</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial Card 3 -->
+                <div class="bg-white p-8 rounded-2xl custom-shadow feature-card animate-on-scroll" style="transition-delay: 0.2s;">
+                    <p class="text-lg text-gray-700 mb-6 italic">"The virtual tours are a game-changer! I could narrow down my choices without leaving my couch. GuriUp truly understands modern property search."</p>
+                    <div class="flex items-center">
+                        <img
+                            src="https://placehold.co/60x60/84CC16/FFFFFF?text=MK"
+                            onerror="this.onerror=null;this.src='https://placehold.co/60x60/E5E7EB/6B7280?text=User';"
+                            alt="Michael K."
+                            class="w-16 h-16 rounded-full mr-4 object-cover"
+                        >
+                        <div>
+                            <p class="font-bold text-gray-800">Michael K.</p>
+                            <p class="text-sm text-gray-500">Savvy Investor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-16 animate-on-scroll">Frequently Asked Questions</h2>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="accordion-item rounded-xl overflow-hidden custom-shadow animate-on-scroll">
+                    <div class="accordion-header flex justify-between items-center cursor-pointer p-5 bg-gray-100 hover:bg-gray-200 rounded-xl">
+                        <h3 class="text-lg font-semibold text-gray-800">How do I search for properties on GuriUp?</h3>
+                        <svg class="accordion-icon w-6 h-6 text-gray-600 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="accordion-content p-5 bg-white border-t border-gray-200">
+                        <p class="text-gray-700">Simply open the app, enter your desired location, property type, budget, and other preferences into the search bar. Our smart filters will then present you with a tailored list of available options.</p>
+                    </div>
+                </div>
+                <!-- FAQ Item 2 -->
+                <div class="accordion-item rounded-xl overflow-hidden custom-shadow animate-on-scroll" style="transition-delay: 0.1s;">
+                    <div class="accordion-header flex justify-between items-center cursor-pointer p-5 bg-gray-100 hover:bg-gray-200 rounded-xl">
+                        <h3 class="text-lg font-semibold text-gray-800">Is my personal information safe with GuriUp?</h3>
+                        <svg class="accordion-icon w-6 h-6 text-gray-600 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="accordion-content p-5 bg-white border-t border-gray-200">
+                        <p class="text-gray-700">Absolutely. We prioritize your privacy and employ robust security measures, including Firebase's secure authentication and database services, to protect your data. Please refer to our detailed <a href="https://www.garaadbiixi.com/privacy" target="_blank" class="text-indigo-600 hover:underline">Privacy Policy</a> for more information.</p>
+                    </div>
+                </div>
+                <!-- FAQ Item 3 -->
+                <div class="accordion-item rounded-xl overflow-hidden custom-shadow animate-on-scroll" style="transition-delay: 0.2s;">
+                    <div class="accordion-header flex justify-between items-center cursor-pointer p-5 bg-gray-100 hover:bg-gray-200 rounded-xl">
+                        <h3 class="text-lg font-semibold text-gray-800">How do I book a property or hotel?</h3>
+                        <svg class="accordion-icon w-6 h-6 text-gray-600 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="accordion-content p-5 bg-white border-t border-gray-200">
+                        <p class="text-gray-700">Once you've found a listing you love, simply click on the "Book Now" or "Contact Agent" button within the listing details. Follow the prompts to complete your reservation or inquiry securely within the app.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action / Contact Section -->
+    <section id="contact" class="py-16 md:py-24 bg-indigo-700 text-white text-center relative overflow-hidden">
+        <!-- Background shapes/lines for modern look -->
+        <div class="absolute inset-0 z-0 opacity-10">
+            <svg class="w-full h-full" fill="none" viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0H1440V800H0V0Z" fill="url(#pattern1)"/>
+                <defs>
+                    <pattern id="pattern1" patternContentUnits="objectBoundingBox" width="1" height="1">
+                        <use transform="scale(0.000694444 0.00125)" href="#image1_1_2"/>
+                    </pattern>
+                    <image id="image1_1_2" width="1440" height="800" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI4MDAiIHZpZXdCb3g9IjAgMCAxNDQwIDgwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAgMEgxNDQwVjgwMEgwVjBaIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXJfMV82KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDBfbGluZWFyXzFfNiIgeDE9IjcyMCIgeTE9IjAiIHgyPSI3MjAiIHkyPSI4MDAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY0N0RFNyIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0MzQ3QkEiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4="/>
+                </defs>
+            </svg>
+        </div>
+        <div class="container mx-auto px-6 md:px-12 relative z-10 animate-on-scroll">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-6">Your Dream Space Awaits.</h2>
+            <p class="text-lg md:text-xl mb-10 opacity-90 max-w-3xl mx-auto">
+                Ready to explore a world of possibilities? Download GuriUp today and unlock access to your next home or perfect getaway.
+            </p>
+            <a href="#" class="bg-white text-indigo-700 px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition duration-300 inline-block">
+                Download the App Now!
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- About GuriUp -->
+            <div>
+                <h3 class="text-xl font-bold text-white mb-4">GuriUp</h3>
+                <p class="text-gray-400">Your trusted partner in finding the perfect property or comfortable stay, anywhere in the world.</p>
+            </div>
+            <!-- Quick Links -->
+            <div>
+                <h3 class="text-xl font-bold text-white mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#features" class="hover:text-indigo-400 transition duration-300">Features</a></li>
+                    <li><a href="#how-it-works" class="hover:text-indigo-400 transition duration-300">How It Works</a></li>
+                    <li><a href="#impact" class="hover:text-indigo-400 transition duration-300">Our Impact</a></li>
+                    <li><a href="#testimonials" class="hover:text-indigo-400 transition duration-300">Testimonials</a></li>
+                    <li><a href="#faq" class="hover:text-indigo-400 transition duration-300">FAQ</a></li>
+                    <li><a href="#contact" class="hover:text-indigo-400 transition duration-300">Contact</a></li>
+                    <li><a href="https://www.garaadbiixi.com/privacy" target="_blank" class="hover:text-indigo-400 transition duration-300">Privacy Policy</a></li>
+                    <li><a href="https://www.garaadbiixi.com/terms" target="_blank" class="hover:text-indigo-400 transition duration-300">Terms of Service</a></li>
+                </ul>
+            </div>
+            <!-- Contact Info -->
+            <div>
+                <h3 class="text-xl font-bold text-white mb-4">Contact Us</h3>
+                <p class="text-gray-400 mb-2">Email: <a href="mailto:info@garaadbiixi.com" class="hover:text-indigo-400">info@garaadbiixi.com</a></p>
+                <p class="text-gray-400">Website: <a href="https://www.garaadbiixi.com" target="_blank" class="hover:text-indigo-400">www.garaadbiixi.com</a></p>
+            </div>
+        </div>
+        <div class="text-center text-gray-500 text-sm mt-10">
+            &copy; 2025 GuriUp. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="flex items-center justify-center">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+    </button>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            var mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobile-menu a').forEach(item => {
+            item.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Scroll-Reveal Animation Logic
+        const animateOnScrollElements = document.querySelectorAll('.animate-on-scroll');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Optional: Unobserve after animation to save resources
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1, // Trigger when 10% of the element is visible
+            rootMargin: "0px 0px -50px 0px" // Adjust to trigger slightly earlier
+        });
+
+        animateOnScrollElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // FAQ Accordion Logic
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const accordionItem = header.closest('.accordion-item');
+                const content = accordionItem.querySelector('.accordion-content');
+                const icon = header.querySelector('.accordion-icon');
+
+                // Close other open accordions
+                document.querySelectorAll('.accordion-item').forEach(item => {
+                    if (item !== accordionItem) {
+                        item.querySelector('.accordion-content').classList.remove('open');
+                        item.querySelector('.accordion-header').classList.remove('active');
+                        item.querySelector('.accordion-icon').classList.remove('rotate');
+                    }
+                });
+
+                // Toggle current accordion
+                content.classList.toggle('open');
+                header.classList.toggle('active');
+                icon.classList.toggle('rotate');
+            });
+        });
+
+        // Back to Top Button Logic
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Show button after scrolling 300px
+                backToTopButton.style.display = 'flex';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 </body>
 </html>
