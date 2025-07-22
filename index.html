@@ -44,8 +44,8 @@
             box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15), 0 8px 15px -5px rgba(0, 0, 0, 0.08);
         }
 
-        /* Responsive image sizing for hero section */
-        .hero-image {
+        /* Responsive image sizing for general images */
+        .responsive-image {
             max-width: 100%;
             height: auto;
             border-radius: 1.5rem;
@@ -82,8 +82,22 @@
         .hero-title { animation-delay: 0.2s; }
         .hero-subtitle { animation-delay: 0.4s; }
         .hero-button { animation-delay: 0.6s; }
-        .hero-img { animation: fadeInSlideUp 1s ease-out forwards; animation-delay: 0.8s; }
+        .hero-img-container { animation: fadeInSlideUp 1s ease-out forwards; animation-delay: 0.8s; }
 
+        /* Hero Carousel specific styles */
+        .hero-carousel-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out, filter 1s ease-in-out, transform 1s ease-in-out;
+            filter: blur(10px) brightness(0.7); /* Start blurred and darker */
+            transform: scale(1.05); /* Slightly zoomed in */
+        }
+        .hero-carousel-bg.active {
+            filter: blur(0px) brightness(1); /* Clear and normal brightness */
+            transform: scale(1); /* Zoomed out to normal */
+        }
 
         /* FAQ Accordion Styling */
         .accordion-header {
@@ -178,7 +192,7 @@
                 <a href="#testimonials" class="text-gray-600 hover:text-indigo-700 font-medium transition duration-300">Testimonials</a>
                 <a href="#faq" class="text-gray-600 hover:text-indigo-700 font-medium transition duration-300">FAQ</a>
                 <a href="#contact" class="text-gray-600 hover:text-indigo-700 font-medium transition duration-300">Contact</a>
-                <a href="#" class="btn-gradient text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transition duration-300">Get Started</a>
+                <a href="https://www.garaadbiixi.com/p/guriup1.html" target="_blank" class="btn-gradient text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transition duration-300">Get Started</a>
             </div>
         </div>
 
@@ -190,100 +204,106 @@
             <a href="#testimonials" class="block text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-lg transition duration-300">Testimonials</a>
             <a href="#faq" class="block text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-lg transition duration-300">FAQ</a>
             <a href="#contact" class="block text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-lg transition duration-300">Contact</a>
-            <a href="#" class="block btn-gradient text-white px-4 py-2 rounded-lg font-semibold text-center mt-2">Get Started</a>
+            <a href="https://www.garaadbiixi.com/p/guriup1.html" target="_blank" class="block btn-gradient text-white px-4 py-2 rounded-lg font-semibold text-center mt-2">Get Started</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="bg-gradient-to-br from-indigo-600 to-indigo-400 text-white py-24 md:py-32 flex items-center min-h-screen-minus-nav relative overflow-hidden">
-        <!-- Background shapes/lines for modern look -->
-        <div class="absolute inset-0 z-0 opacity-10">
-            <svg class="w-full h-full" fill="none" viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 0H1440V800H0V0Z" fill="url(#pattern0)"/>
-                <defs>
-                    <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
-                        <use transform="scale(0.000694444 0.00125)" href="#image0_1_2"/>
-                    </pattern>
-                    <image id="image0_1_2" width="1440" height="800" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI4MDAiIHZpZXdCb3g9IjAgMCAxNDQwIDgwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAgMEgxNDQwVjgwMEgwVjBaIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXJfMV82KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDBfbGluZWFyXzFfNiIgeDE9IjcyMCIgeTE9IjAiIHgyPSI3MjAiIHkyPSI4MDAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY0N0RFNyIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0MzQ3QkEiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4="/>
-                </defs>
-            </svg>
+        <!-- Futuristic Smart Carousel Background -->
+        <div id="hero-carousel-bg" class="hero-carousel-bg active">
+            <!-- Optional: Futuristic strokes/shapes overlay -->
+            <div class="absolute inset-0 z-10 opacity-20">
+                <svg class="w-full h-full" fill="none" viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0H1440V800H0V0Z" fill="url(#pattern-hero)"/>
+                    <defs>
+                        <pattern id="pattern-hero" patternContentUnits="objectBoundingBox" width="1" height="1">
+                            <use transform="scale(0.000694444 0.00125)" href="#image-hero"/>
+                        </pattern>
+                        <image id="image-hero" width="1440" height="800" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI4MDAiIHZpZXdCb3g9IjAgMCAxNDQwIDgwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAgMEgxNDQwVjgwMEgwVjBaIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXJfMV82KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDBfbGluZWFyXzFfNiIgeDE9IjcyMCIgeTE9IjAiIHgyPSI3MjAiIHkyPSI4MDAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY0N0RFNyIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0MzQ3QkEiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Z2c+"/>
+                    </defs>
+                </svg>
+            </div>
+            <div class="absolute inset-0 bg-black opacity-40 z-20"></div> <!-- Dark overlay -->
         </div>
 
-        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-6 md:px-12 pt-16 relative z-10">
-            <div class="text-center md:text-left md:w-1/2 mb-12 md:mb-0">
+        <!-- Content -->
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-6 md:px-12 pt-16 relative z-30">
+            <div class="text-center md:text-left md:w-1/2 mb-12 md:mb-0 animate-on-scroll">
                 <h1 class="hero-title text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
                     Unlock Your <span class="text-yellow-300">Dream Property</span> or Perfect Stay
                 </h1>
                 <p class="hero-subtitle text-lg md:text-xl mb-8 opacity-90">
                     GuriUp connects you with a world of exquisite homes and comfortable hotels. Your ideal space, just a tap away.
                 </p>
-                <a href="#" class="hero-button btn-gradient text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition duration-300 inline-block">
+                <a href="https://www.garaadbiixi.com/p/guriup1.html" target="_blank" class="hero-button btn-gradient text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition duration-300 inline-block">
                     Start Your Search Today
                 </a>
             </div>
-            <div class="md:w-1/2 flex justify-center hero-img">
-                <img
-                    src="https://placehold.co/600x400/6366F1/FFFFFF?text=Modern+Home"
-                    onerror="this.onerror=null;this.src='https://placehold.co/600x400/E5E7EB/6B7280?text=Image+Unavailable';"
-                    alt="Modern Home Illustration"
-                    class="hero-image custom-shadow w-full max-w-md md:max-w-lg lg:max-w-xl"
-                >
+            <div class="md:w-1/2 flex justify-center hero-img-container animate-on-scroll">
+                <!-- Futuristic Shape Placeholder -->
+                <div class="w-full max-w-md md:max-w-lg lg:max-w-xl h-64 md:h-80 lg:h-96 bg-white bg-opacity-10 rounded-3xl flex items-center justify-center custom-shadow border border-indigo-300 backdrop-blur-sm relative overflow-hidden">
+                    <!-- Dynamic Futuristic Stroke/Shape -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <svg class="w-3/4 h-3/4 text-indigo-200 opacity-70 animate-pulse" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zm0 14.5L2 11.5l10 5 10-5-10-5v10zM12 21.5L2 16.5l10 5 10-5-10-5v10z"/>
+                        </svg>
+                    </div>
+                    <!-- Small image on top of the shape -->
+                    <img
+                        src="https://placehold.co/200x150/FFFFFF/6366F1?text=GuriUp+App"
+                        onerror="this.onerror=null;this.src='https://placehold.co/200x150/E5E7EB/6B7280?text=App';"
+                        alt="GuriUp App Screenshot"
+                        class="absolute z-40 rounded-lg shadow-xl"
+                        style="top: 50%; left: 50%; transform: translate(-50%, -50%);"
+                    >
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- Features Section - What We Do -->
     <section id="features" class="py-16 md:py-24 bg-white">
         <div class="container mx-auto px-6 md:px-12">
-            <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-16 animate-on-scroll">Why GuriUp is Your Best Choice</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Feature Card 1 -->
-                <div class="feature-card bg-white p-8 rounded-2xl custom-shadow text-center animate-on-scroll">
-                    <div class="bg-indigo-100 text-indigo-600 rounded-full p-4 inline-flex items-center justify-center mb-6">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path></svg>
+            <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-16 animate-on-scroll">What We Do: Your Ultimate Property & Hotel Companion</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Property Section -->
+                <div class="animate-on-scroll">
+                    <div class="bg-indigo-50 p-8 rounded-2xl custom-shadow">
+                        <h3 class="text-3xl font-bold text-indigo-700 mb-6">For Property Seekers</h3>
+                        <p class="text-lg text-gray-700 mb-6">
+                            Whether you're looking to buy, rent, or invest, GuriUp provides a seamless experience to discover your next property.
+                        </p>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3 mb-8">
+                            <li><strong>Extensive Listings:</strong> Access a vast database of houses, apartments, commercial spaces, and land.</li>
+                            <li><strong>Smart Matching:</strong> Our algorithms learn your preferences to suggest properties that truly fit your lifestyle.</li>
+                            <li><strong>Virtual Walkthroughs:</strong> Immerse yourself with high-quality photos and 360-degree virtual tours.</li>
+                            <li><strong>Direct Contact:</strong> Connect directly with verified sellers and agents for quick inquiries and viewings.</li>
+                            <li><strong>Investment Insights:</strong> Get data-driven insights to make informed property investment decisions.</li>
+                        </ul>
+                        <a href="https://www.garaadbiixi.com/p/guriup1.html" target="_blank" class="btn-gradient text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition duration-300 inline-block">
+                            Find Your Dream Home
+                        </a>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Expansive Global Listings</h3>
-                    <p class="text-gray-600">Access thousands of verified properties and hotels in prime locations worldwide. Your next adventure or investment awaits.</p>
                 </div>
-                <!-- Feature Card 2 -->
-                <div class="feature-card bg-white p-8 rounded-2xl custom-shadow text-center animate-on-scroll" style="transition-delay: 0.1s;">
-                    <div class="bg-green-100 text-green-600 rounded-full p-4 inline-flex items-center justify-center mb-6">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <!-- Hotel Section -->
+                <div class="animate-on-scroll" style="transition-delay: 0.2s;">
+                    <div class="bg-green-50 p-8 rounded-2xl custom-shadow">
+                        <h3 class="text-3xl font-bold text-green-700 mb-6">For Hotel & Stay Bookings</h3>
+                        <p class="text-lg text-gray-700 mb-6">
+                            Planning a trip or need a quick getaway? GuriUp simplifies hotel discovery and booking, ensuring a comfortable stay.
+                        </p>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3 mb-8">
+                            <li><strong>Diverse Accommodations:</strong> From budget-friendly stays to luxurious resorts, find options for every need.</li>
+                            <li><strong>Real-time Availability:</strong> Check live room availability and pricing instantly.</li>
+                            <li><strong>Guest Reviews & Ratings:</strong> Make informed decisions with authentic feedback from other travelers.</li>
+                            <li><strong>Secure Reservations:</strong> Book with confidence through our encrypted and reliable booking system.</li>
+                            <li><strong>Exclusive Deals:</strong> Access special offers and discounts available only to GuriUp users.</li>
+                        </ul>
+                        <a href="https://www.garaadbiixi.com/p/guriup1.html" target="_blank" class="btn-gradient text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition duration-300 inline-block">
+                            Book Your Perfect Stay
+                        </a>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Intelligent Search & Filters</h3>
-                    <p class="text-gray-600">Our intuitive search and smart filters help you pinpoint your exact desires, saving you time and effort.</p>
-                </div>
-                <!-- Feature Card 3 -->
-                <div class="feature-card bg-white p-8 rounded-2xl custom-shadow text-center animate-on-scroll" style="transition-delay: 0.2s;">
-                    <div class="bg-purple-100 text-purple-600 rounded-full p-4 inline-flex items-center justify-center mb-6">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3-.895-3-2 1.343-2 3-2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.612A9.763 9.763 0 0112 4c4.97 0 9 3.582 9 8z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Seamless & Secure Booking</h3>
-                    <p class="text-gray-600">Experience peace of mind with our streamlined and highly secure booking process, protecting your data and transactions.</p>
-                </div>
-                <!-- Feature Card 4 -->
-                <div class="feature-card bg-white p-8 rounded-2xl custom-shadow text-center animate-on-scroll" style="transition-delay: 0.3s;">
-                    <div class="bg-red-100 text-red-600 rounded-full p-4 inline-flex items-center justify-center mb-6">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Immersive Virtual Tours</h3>
-                    <p class="text-gray-600">Explore properties from anywhere with high-quality photos and engaging virtual tours, saving you travel time.</p>
-                </div>
-                <!-- Feature Card 5 -->
-                <div class="feature-card bg-white p-8 rounded-2xl custom-shadow text-center animate-on-scroll" style="transition-delay: 0.4s;">
-                    <div class="bg-yellow-100 text-yellow-600 rounded-full p-4 inline-flex items-center justify-center mb-6">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">24/7 Dedicated Support</h3>
-                    <p class="text-gray-600">Our expert support team is always ready to assist you, ensuring a smooth and stress-free experience.</p>
-                </div>
-                <!-- Feature Card 6 -->
-                <div class="feature-card bg-white p-8 rounded-2xl custom-shadow text-center animate-on-scroll" style="transition-delay: 0.5s;">
-                    <div class="bg-blue-100 text-blue-600 rounded-full p-4 inline-flex items-center justify-center mb-6">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.007 12.007 0 002.944 12c0 2.893.998 5.618 2.766 7.734l1.395 1.395A12.007 12.007 0 0012 21.056c2.893 0 5.618-.998 7.734-2.766l1.395-1.395A12.007 12.007 0 0021.056 12c0-2.893-.998-5.618-2.766-7.734z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Verified Listings & Trust</h3>
-                    <p class="text-gray-600">We prioritize your safety with a rigorous verification process for all properties and hosts.</p>
                 </div>
             </div>
         </div>
@@ -330,7 +350,7 @@
                         src="https://placehold.co/600x400/818CF8/FFFFFF?text=App+Workflow"
                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/E5E7EB/6B7280?text=Image+Unavailable';"
                         alt="How GuriUp App Works Workflow"
-                        class="hero-image custom-shadow w-full max-w-md md:max-w-lg lg:max-w-xl"
+                        class="responsive-image custom-shadow w-full max-w-md md:max-w-lg lg:max-w-xl"
                     >
                 </div>
             </div>
@@ -342,9 +362,9 @@
         <div class="container mx-auto px-6 md:px-12">
             <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-16 animate-on-scroll">Our Commitment: Building Trust & Driving Impact</h2>
             <p class="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto animate-on-scroll">
-                GuriUp is more than just an app; it's a platform committed to positive change. We are proud to collaborate with leading organizations to ensure transparency, support community development, and uphold international standards.
+                GuriUp is more than just an app; it's a platform committed to positive change and reliable service. We are proud to collaborate with leading organizations, ensuring transparency, supporting community development, and upholding international standards.
             </p>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center max-w-4xl mx-auto animate-on-scroll">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center max-w-4xl mx-auto animate-on-scroll" style="transition-delay: 0.2s;">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/UNICEF_Logo.svg/500px-UNICEF_Logo.svg.png" alt="UNICEF Logo" class="h-16 md:h-20 w-auto opacity-75 hover:opacity-100 transition duration-300" onerror="this.onerror=null;this.src='https://placehold.co/100x50/E5E7EB/6B7280?text=UNICEF';">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/World_Food_Programme_%28WFP%29_logo.svg/500px-World_Food_Programme_%28WFP%29_logo.svg.png" alt="WFP Logo" class="h-16 md:h-20 w-auto opacity-75 hover:opacity-100 transition duration-300" onerror="this.onerror=null;this.src='https://placehold.co/100x50/E5E7EB/6B7280?text=WFP';">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/WHO_logo.svg/500px-WHO_logo.svg.png" alt="WHO Logo" class="h-16 md:h-20 w-auto opacity-75 hover:opacity-100 transition duration-300" onerror="this.onerror=null;this.src='https://placehold.co/100x50/E5E7EB/6B7280?text=WHO';">
@@ -365,7 +385,7 @@
                         <img
                             src="https://placehold.co/60x60/A78BFA/FFFFFF?text=JD"
                             onerror="this.onerror=null;this.src='https://placehold.co/60x60/E5E7EB/6B7280?text=User';"
-                            alt="John Doe"
+                            alt="John D."
                             class="w-16 h-16 rounded-full mr-4 object-cover"
                         >
                         <div>
@@ -418,21 +438,21 @@
                 <!-- FAQ Item 1 -->
                 <div class="accordion-item rounded-xl overflow-hidden custom-shadow animate-on-scroll">
                     <div class="accordion-header flex justify-between items-center cursor-pointer p-5 bg-gray-100 hover:bg-gray-200 rounded-xl">
-                        <h3 class="text-lg font-semibold text-gray-800">How do I search for properties on GuriUp?</h3>
+                        <h3 class="text-lg font-semibold text-gray-800">How do I search for properties or hotels on GuriUp?</h3>
                         <svg class="accordion-icon w-6 h-6 text-gray-600 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                     <div class="accordion-content p-5 bg-white border-t border-gray-200">
-                        <p class="text-gray-700">Simply open the app, enter your desired location, property type, budget, and other preferences into the search bar. Our smart filters will then present you with a tailored list of available options.</p>
+                        <p class="text-gray-700">Simply open the app, enter your desired location, property type, budget, and other preferences into the search bar. Our intelligent filters will then present you with a tailored list of available options, from cozy apartments to luxurious hotels.</p>
                     </div>
                 </div>
                 <!-- FAQ Item 2 -->
                 <div class="accordion-item rounded-xl overflow-hidden custom-shadow animate-on-scroll" style="transition-delay: 0.1s;">
                     <div class="accordion-header flex justify-between items-center cursor-pointer p-5 bg-gray-100 hover:bg-gray-200 rounded-xl">
-                        <h3 class="text-lg font-semibold text-gray-800">Is my personal information safe with GuriUp?</h3>
+                        <h3 class="text-lg font-semibold text-gray-800">Is my personal information safe and secure with GuriUp?</h3>
                         <svg class="accordion-icon w-6 h-6 text-gray-600 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                     <div class="accordion-content p-5 bg-white border-t border-gray-200">
-                        <p class="text-gray-700">Absolutely. We prioritize your privacy and employ robust security measures, including Firebase's secure authentication and database services, to protect your data. Please refer to our detailed <a href="https://www.garaadbiixi.com/privacy" target="_blank" class="text-indigo-600 hover:underline">Privacy Policy</a> for more information.</p>
+                        <p class="text-gray-700">Absolutely. We prioritize your privacy and employ robust security measures, including Firebase's industry-leading secure authentication and database services, to protect your data. All transactions and personal details are encrypted. Please refer to our detailed <a href="https://www.garaadbiixi.com/privacy" target="_blank" class="text-indigo-600 hover:underline">Privacy Policy</a> for comprehensive information on how we handle your data.</p>
                     </div>
                 </div>
                 <!-- FAQ Item 3 -->
@@ -442,7 +462,27 @@
                         <svg class="accordion-icon w-6 h-6 text-gray-600 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                     <div class="accordion-content p-5 bg-white border-t border-gray-200">
-                        <p class="text-gray-700">Once you've found a listing you love, simply click on the "Book Now" or "Contact Agent" button within the listing details. Follow the prompts to complete your reservation or inquiry securely within the app.</p>
+                        <p class="text-gray-700">Once you've found a listing that captures your interest, simply click on the "Book Now" or "Contact Agent" button prominently displayed within the listing details. Follow the intuitive prompts to securely complete your reservation or inquiry directly within the GuriUp app. You'll receive instant confirmation.</p>
+                    </div>
+                </div>
+                <!-- FAQ Item 4 -->
+                <div class="accordion-item rounded-xl overflow-hidden custom-shadow animate-on-scroll" style="transition-delay: 0.3s;">
+                    <div class="accordion-header flex justify-between items-center cursor-pointer p-5 bg-gray-100 hover:bg-gray-200 rounded-xl">
+                        <h3 class="text-lg font-semibold text-gray-800">What types of properties and hotels are available on GuriUp?</h3>
+                        <svg class="accordion-icon w-6 h-6 text-gray-600 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="accordion-content p-5 bg-white border-t border-gray-200">
+                        <p class="text-gray-700">GuriUp offers a diverse and expansive selection of properties, including apartments, houses, villas, commercial spaces, and land. For hotels, you'll find everything from boutique hotels and guesthouses to luxury resorts and extended-stay accommodations, catering to all budgets and preferences.</p>
+                    </div>
+                </div>
+                <!-- FAQ Item 5 -->
+                <div class="accordion-item rounded-xl overflow-hidden custom-shadow animate-on-scroll" style="transition-delay: 0.4s;">
+                    <div class="accordion-header flex justify-between items-center cursor-pointer p-5 bg-gray-100 hover:bg-gray-200 rounded-xl">
+                        <h3 class="text-lg font-semibold text-gray-800">Does GuriUp offer customer support?</h3>
+                        <svg class="accordion-icon w-6 h-6 text-gray-600 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="accordion-content p-5 bg-white border-t border-gray-200">
+                        <p class="text-gray-700">Yes, we provide 24/7 dedicated customer support. Our knowledgeable team is always ready to assist you with any inquiries, technical issues, or booking assistance you may need, ensuring a smooth and stress-free experience from start to finish.</p>
                     </div>
                 </div>
             </div>
@@ -454,12 +494,12 @@
         <!-- Background shapes/lines for modern look -->
         <div class="absolute inset-0 z-0 opacity-10">
             <svg class="w-full h-full" fill="none" viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 0H1440V800H0V0Z" fill="url(#pattern1)"/>
+                <path d="M0 0H1440V800H0V0Z" fill="url(#pattern-cta)"/>
                 <defs>
-                    <pattern id="pattern1" patternContentUnits="objectBoundingBox" width="1" height="1">
-                        <use transform="scale(0.000694444 0.00125)" href="#image1_1_2"/>
+                    <pattern id="pattern-cta" patternContentUnits="objectBoundingBox" width="1" height="1">
+                        <use transform="scale(0.000694444 0.00125)" href="#image-cta"/>
                     </pattern>
-                    <image id="image1_1_2" width="1440" height="800" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI4MDAiIHZpZXdCb3g9IjAgMCAxNDQwIDgwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAgMEgxNDQwVjgwMEgwVjBaIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXJfMV82KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDBfbGluZWFyXzFfNiIgeDE9IjcyMCIgeTE9IjAiIHgyPSI3MjAiIHkyPSI4MDAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY0N0RFNyIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0MzQ3QkEiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4="/>
+                    <image id="image-cta" width="1440" height="800" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI4MDAiIHZpZXdCb3g9IjAgMCAxNDQwIDgwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAgMEgxNDQwVjgwMEgwVjBaIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXJfMV82KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDBfbGluZWFyXzFfNiIgeDE9IjcyMCIgeTE9IjAiIHgyPSI3MjAiIHkyPSI4MDAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY0N0RFNyIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0MzQ3QkEiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4="/>
                 </defs>
             </svg>
         </div>
@@ -468,7 +508,7 @@
             <p class="text-lg md:text-xl mb-10 opacity-90 max-w-3xl mx-auto">
                 Ready to explore a world of possibilities? Download GuriUp today and unlock access to your next home or perfect getaway.
             </p>
-            <a href="#" class="bg-white text-indigo-700 px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition duration-300 inline-block">
+            <a href="https://www.garaadbiixi.com/p/guriup1.html" target="_blank" class="bg-white text-indigo-700 px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition duration-300 inline-block">
                 Download the App Now!
             </a>
         </div>
@@ -500,7 +540,7 @@
             <div>
                 <h3 class="text-xl font-bold text-white mb-4">Contact Us</h3>
                 <p class="text-gray-400 mb-2">Email: <a href="mailto:info@garaadbiixi.com" class="hover:text-indigo-400">info@garaadbiixi.com</a></p>
-                <p class="text-gray-400">Website: <a href="https://www.garaadbiixi.com" target="_blank" class="hover:text-indigo-400">www.garaadbiixi.com</a></p>
+                <p class="text-gray-400">Website: <a href="https://www.garaadbiixi.com/p/guriup1.html" target="_blank" class="hover:text-indigo-400">garaadbiixi.com/p/guriup1.html</a></p>
             </div>
         </div>
         <div class="text-center text-gray-500 text-sm mt-10">
@@ -515,7 +555,7 @@
 
     <!-- JavaScript for Interactivity -->
     <script>
-        // Mobile Menu Toggle
+        // --- Mobile Menu Toggle ---
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             var mobileMenu = document.getElementById('mobile-menu');
             mobileMenu.classList.toggle('hidden');
@@ -528,7 +568,7 @@
             });
         });
 
-        // Scroll-Reveal Animation Logic
+        // --- Scroll-Reveal Animation Logic ---
         const animateOnScrollElements = document.querySelectorAll('.animate-on-scroll');
 
         const observer = new IntersectionObserver((entries) => {
@@ -548,7 +588,7 @@
             observer.observe(element);
         });
 
-        // FAQ Accordion Logic
+        // --- FAQ Accordion Logic ---
         document.querySelectorAll('.accordion-header').forEach(header => {
             header.addEventListener('click', () => {
                 const accordionItem = header.closest('.accordion-item');
@@ -571,7 +611,7 @@
             });
         });
 
-        // Back to Top Button Logic
+        // --- Back to Top Button Logic ---
         const backToTopButton = document.getElementById('back-to-top');
 
         window.addEventListener('scroll', () => {
@@ -587,6 +627,34 @@
                 top: 0,
                 behavior: 'smooth'
             });
+        });
+
+        // --- Hero Carousel Logic ---
+        const heroImages = [
+            'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Modern house
+            'https://images.unsplash.com/photo-1542314831-068cd1dbf26e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Luxury hotel pool
+            'https://images.unsplash.com/photo-1512917774080-bd792379fed0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Cozy interior
+            'https://images.unsplash.com/photo-1570129477490-95d53c823f23?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Another modern house
+        ];
+        let currentImageIndex = 0;
+        const heroCarouselBg = document.getElementById('hero-carousel-bg');
+
+        function updateHeroBackground() {
+            heroCarouselBg.style.backgroundImage = `url('${heroImages[currentImageIndex]}')`;
+            heroCarouselBg.classList.remove('active'); // Re-blur
+            setTimeout(() => {
+                heroCarouselBg.classList.add('active'); // Unblur after a short delay
+            }, 100); // Small delay for re-blur transition
+        }
+
+        // Initial load
+        window.addEventListener('load', () => {
+            updateHeroBackground();
+            // Start cycling after initial load
+            setInterval(() => {
+                currentImageIndex = (currentImageIndex + 1) % heroImages.length;
+                updateHeroBackground();
+            }, 8000); // Change image every 8 seconds
         });
     </script>
 </body>
